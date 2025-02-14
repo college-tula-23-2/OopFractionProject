@@ -129,7 +129,7 @@ public:
         return result;
     }
 
-    Fraction operator+(int number)
+    /*Fraction operator+(int number)
     {
         Fraction f;
         f.SetNumerator(number * denominator);
@@ -140,9 +140,9 @@ public:
     friend Fraction operator+(int number, Fraction f)
     {
         return f + number;
-    }
+    }*/
 
-    friend bool operator<(Fraction f1, Fraction f2)
+    /*friend bool operator<(Fraction f1, Fraction f2)
     {
         return f1.numerator * f2.denominator < f2.numerator * f1.denominator;
     }
@@ -167,9 +167,9 @@ public:
         Fraction result{ *this };
         result.numerator = -result.numerator;
         return result;
-    }
+    }*/
 
-    Fraction operator++()
+    /*Fraction operator++()
     {
         *this = *this + 1;
         return *this;
@@ -180,7 +180,7 @@ public:
         Fraction result{ *this };
         ++(*this);
         return result;
-    }
+    }*/
 
     friend std::ostream& operator<<(std::ostream& out, const Fraction& f)
     {
@@ -188,30 +188,40 @@ public:
             << f.denominator << "]";
         return out;
     }
+
+    /*operator double()
+    {
+        return (double)numerator / denominator;
+    }*/
+};
+
+class Money
+{
+    int rub;
+    int kop;
+public:
+    Money(int rub, int kop) : rub{ rub }, kop{ kop } {}
+    int& Rub(){ return rub; }
+    int& Kop() { return kop; }
+
+    explicit operator Fraction()
+    {
+        return Fraction(rub * 100 + kop, 100);
+    }
+
+    operator bool()
+    {
+
+    }
 };
 
 int main()
 {
-    Fraction f1{ 2, 7 };
-    f1.Cout();
-    std::cout << "\n";
+    Fraction f1(2, 5);
+    Fraction f2;
 
-    Fraction f2 = 2 + f1++;
+    f2 = f1;
+    f2.SetNumerator(3);
+
     std::cout << f1 << " " << f2 << "\n";
-
-    /*Fraction f2(2, 7);
-    f2.Cout();
-    std::cout << "\n";
-
-    
-    Fraction f3;
-    f3.SetNumerator(2);
-    f3.SetDenominator(5);
-    f3.Cout();
-    std::cout << "\n";*/
-
-    /*Fraction f4 = f1.Plus(f2)
-                    .Minus(f3)
-                    .Plus(f1);*/
-    
 }
